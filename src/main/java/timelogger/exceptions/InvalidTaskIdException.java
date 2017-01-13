@@ -1,10 +1,16 @@
 package timelogger.exceptions;
 
-public class InvalidTaskIdException extends RuntimeException {
+/**
+ * This exception is thrown if the taskId has an invalid value
+ *
+ * @author rlovasz
+ */
+public class InvalidTaskIdException extends IllegalArgumentException {
 
-    public InvalidTaskIdException() {
-    }
-    
+    /**
+     *
+     * @param message sets the message of the exception
+     */
     public InvalidTaskIdException(String message) {
         super(message);
     }

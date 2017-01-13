@@ -3,84 +3,46 @@ package timelogger.beans;
 import timelogger.exceptions.NotTheSameMonthException;
 import timelogger.exceptions.NotNewDateException;
 import timelogger.exceptions.NotNewMonthException;
-import timelogger.exceptions.NoMonthsException;
 import timelogger.exceptions.WeekendNotEnabledException;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import timelogger.exceptions.EmptyTimeFieldException;
+import timelogger.exceptions.FutureWorkException;
+import timelogger.exceptions.InvalidTaskIdException;
+import timelogger.exceptions.NoTaskIdException;
+import timelogger.exceptions.NotExpectedTimeOrderException;
+import timelogger.exceptions.NotMultipleQuarterHourException;
+import timelogger.exceptions.NotSeparatedTaskTimesException;
 
 public class TimeLoggerTest {
 
-    
-    private TimeLogger getTimeLogger()
-    {
-    return new TimeLogger();
+    private TimeLogger getTimeLogger() {
+        return new TimeLogger();
     }
-    
-    private Task getTask()
-    {
-    Task task = new Task("4654", "", 7, 30, 10, 30);
-    return task;
+
+    private Task getTask() throws InvalidTaskIdException, NoTaskIdException, NotMultipleQuarterHourException, EmptyTimeFieldException, NotExpectedTimeOrderException {
+        return new Task("4654", "", 7, 30, 10, 30);
     }
-    
+
     @Test
-    public void testAddMonthNormal() {
+    public void testAddMonthNormal() throws FutureWorkException, NotSeparatedTaskTimesException, NotMultipleQuarterHourException, NotExpectedTimeOrderException, InvalidTaskIdException, NoTaskIdException, NotNewDateException, NotTheSameMonthException, WeekendNotEnabledException, NotNewMonthException {
         WorkDay workDay = new WorkDay(2016, 4, 14);
         WorkMonth workMonth = new WorkMonth(2016, 4);
-        workDay.addTask(getTask());
+        Task task = getTask();
+        workDay.addTask(task);
         workMonth.addWorkDay(workDay);
         TimeLogger timeLogger = getTimeLogger();
         timeLogger.addMonth(workMonth);
-        assertEquals(getTask().getMinPerTask(),timeLogger.getMonths().get(0).getSumPerMonth());
+        assertEquals(task.getMinPerTask(), timeLogger.getMonths().get(0).getSumPerMonth());
     }
 
     @Test(expected = NotNewMonthException.class)
-    public void testAddMonthNotNewMonth(){
+    public void testAddMonthNotNewMonth() throws NotNewMonthException {
         TimeLogger timeLogger = getTimeLogger();
         WorkMonth workMonth1 = new WorkMonth(2016, 4);
         WorkMonth workMonth2 = new WorkMonth(2016, 4);
         timeLogger.addMonth(workMonth1);
         timeLogger.addMonth(workMonth2);
-    }
-
-    @Test
-    public void testIsNewMonthTrue() {
-        TimeLogger timeLogger = getTimeLogger();
-        WorkMonth workMonth1 = new WorkMonth(2016, 4);
-        WorkMonth workMonth2 = new WorkMonth(2016, 9);
-        boolean expResult = true;
-        timeLogger.addMonth(workMonth1);
-        boolean result = timeLogger.isNewMonth(workMonth2);
-        assertEquals(expResult, result);
-    }
-
-    @Test
-    public void testIsNewMonthFalse() {
-        TimeLogger timeLogger = getTimeLogger();
-        WorkMonth workMonth1 = new WorkMonth(2016, 4);
-        WorkMonth workMonth2 = new WorkMonth(2016, 4);
-        boolean expResult = false;
-        timeLogger.addMonth(workMonth1);
-        boolean result = timeLogger.isNewMonth(workMonth2);
-        assertEquals(expResult, result);
-    }
-    
-    @Test
-    public void testGetFirstMonthOfTimeLoggerNormal() {
-        TimeLogger timeLogger = getTimeLogger();
-        WorkMonth workMonth1 = new WorkMonth(2016, 4);
-        WorkMonth workMonth2 = new WorkMonth(2016, 8);
-        WorkMonth workMonth3 = new WorkMonth(2016, 9);
-        timeLogger.addMonth(workMonth1);
-        timeLogger.addMonth(workMonth2);
-        timeLogger.addMonth(workMonth3);
-        assertEquals(workMonth1, timeLogger.getFirstMonthOfTimeLogger());
-    }
-
-    @Test(expected = NoMonthsException.class)
-    public void testGetFirstMonthOfTimeLoggerNoMonths() {
-        TimeLogger timeLogger = getTimeLogger();
-        timeLogger.getFirstMonthOfTimeLogger();
-
     }
 
 }

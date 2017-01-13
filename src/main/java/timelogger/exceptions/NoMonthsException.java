@@ -1,10 +1,17 @@
 package timelogger.exceptions;
 
-public class NoMonthsException extends RuntimeException {
+/**
+ * This exception is thrown if there is no month in the timelogger 
+ * when the first month is queried
+ *
+ * @author rlovasz
+ */
+public class NoMonthsException extends Exception {
 
-    public NoMonthsException() {
-    }
-    
+    /**
+     *
+     * @param message sets the message of the exception
+     */
     public NoMonthsException(String message) {
         super(message);
     }

@@ -1,12 +1,18 @@
 package timelogger.exceptions;
 
-public class NotExpectedTimeOrderException extends RuntimeException {
+/**
+ * This exception type is thrown if the task ends earlier than it begins
+ *
+ * @author rlovasz
+ */
+public class NotExpectedTimeOrderException extends Exception {
 
-    public NotExpectedTimeOrderException() {
-    }
-    
+    /**
+     *
+     * @param message sets the message of the exception
+     */
     public NotExpectedTimeOrderException(String message) {
         super(message);
     }
-    
+
 }

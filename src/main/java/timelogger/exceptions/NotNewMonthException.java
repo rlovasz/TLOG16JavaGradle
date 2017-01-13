@@ -1,12 +1,18 @@
 package timelogger.exceptions;
 
-public class NotNewMonthException extends RuntimeException {
+/**
+ * This type of Exceptions is thrown if the created month already exists
+ *
+ * @author rlovasz
+ */
+public class NotNewMonthException extends Exception {
 
-    public NotNewMonthException() {
-    }
-    
+    /**
+     *
+     * @param message sets the message of the exception
+     */
     public NotNewMonthException(String message) {
-         super(message);
+        super(message);
     }
-    
+
 }

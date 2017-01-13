@@ -1,12 +1,17 @@
 package timelogger.exceptions;
 
-public class NotMultipleQuarterHourException extends RuntimeException {
+/**
+ * This exception is thrown if the task's time interval is not multiple of
+ * quarter hour
+ *
+ * @author rlovasz
+ */
+public class NotMultipleQuarterHourException extends Exception {
 
-    
-    public NotMultipleQuarterHourException() {
-    }
-
-    
+    /**
+     *
+     * @param message sets the message of the exception
+     */
     public NotMultipleQuarterHourException(String message) {
         super(message);
     }

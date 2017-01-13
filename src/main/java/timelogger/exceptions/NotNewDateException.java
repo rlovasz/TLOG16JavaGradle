@@ -1,12 +1,18 @@
 package timelogger.exceptions;
 
-public class NotNewDateException extends RuntimeException {
+/**
+ * This type of Exception is thrown if the created day is already exists
+ *
+ * @author rlovasz
+ */
+public class NotNewDateException extends Exception {
 
-    public NotNewDateException() {
-    }
-    
+    /**
+     *
+     * @param message sets the message of the exception
+     */
     public NotNewDateException(String message) {
         super(message);
     }
-    
+
 }
